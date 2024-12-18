@@ -51,23 +51,25 @@ lv_obj_t *label;
 QueueHandle_t queue;
 esp_timer_handle_t displayTimerHandle;
 
+char labelBuffer[150];
+
 void displayText(const char *text) {
+    /*strcpy(labelBuffer, text);
     if (lvgl_port_lock(0)) {
-        example_lvgl_demo_ui(global_disp, text);
+        lv_label_set_text_static(label, labelBuffer);
         lvgl_port_unlock(); // Immediately release lock
-    }
-    //xQueueSend(queue, text, 0);
+    }*/
+    xQueueSend(queue, text, 0);
 }
 
 void updateDisplay() {
-    char rxBuffer[150];
     while (1) {
-        if (xQueueReceive(queue, &rxBuffer, portMAX_DELAY)) {
+        if (xQueueReceive(queue, &labelBuffer, portMAX_DELAY)) {
             if (lvgl_port_lock(0)) {
-                example_lvgl_demo_ui(global_disp, rxBuffer);
-                ESP_LOGI("AAAAAA", "%s", rxBuffer);
+                lv_label_set_text_static(label, labelBuffer);
                 lvgl_port_unlock(); // Immediately release lock
             }
+            vTaskDelay(pdMS_TO_TICKS(50));
         }
     }
 }
@@ -148,14 +150,7 @@ void initDisplay(void) {
         lvgl_port_unlock(); // Immediately release lock
     }
 
-    /*const esp_timer_create_args_t displayTimer = {
-            .callback = &updateDisplay,
-            .name = "Display loop",
-    };
-
-    ESP_ERROR_CHECK(esp_timer_create(&displayTimer, &displayTimerHandle));
-
-    ESP_ERROR_CHECK(esp_timer_start_periodic(displayTimerHandle, 50000));*/
+    xTaskCreate(updateDisplay, "Update Display", 8192, NULL, 1, NULL);
 
     vTaskDelete(NULL);
 }

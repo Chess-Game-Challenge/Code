@@ -10,7 +10,6 @@
 #include <board.h>
 #include <esp_timer.h>
 
-const bool DEBUG = false;
 bool isNotReadyToPlay = true;
 
 #pragma region Others
@@ -41,26 +40,19 @@ led_strip_rmt_config_t rmt_config = {
         .flags.with_dma = false, // whether to enable the DMA feature
 #endif
 };
+
 #pragma endregion
-
 #pragma region Math
-
 float getAvg(const int arr[], int n) {
     int sum = 0;
-
     // Find the sum of all elements
     for (int i = 0; i < n; i++) {
         sum += arr[i];
     }
-
     // Return the average
     return (float) sum / (float) n;
 }
-
 #pragma endregion
-
-extern void displayText(const char *text);
-
 static volatile bool starting = true;
 
 void startupLights() {
@@ -71,8 +63,7 @@ void startupLights() {
         hue = 0;
         if (xSemaphoreTake(mutex, portMAX_DELAY) == pdTRUE) {
             for (int i = 0; i < 64; ++i) {
-                ESP_ERROR_CHECK(led_strip_set_pixel_hsv(led_strip, i, hue++, 255,
-                                                        (sin((double) sat / 100 * 3.14)) * 255));
+                ESP_ERROR_CHECK(led_strip_set_pixel_hsv(led_strip, i, hue++, 255, (sin((double) sat / 100 * 3.14)) * 255));
             }
 
             sat++;
@@ -93,8 +84,8 @@ void startupLights() {
 }
 
 void tristate(int *value, int base) {
-    int low = base - 38;
-    int high = base + 38;
+    int low = base - 35;
+    int high = base + 35;
     if (*value > low && *value < high) {
         *value = 0;
     } else if (*value <= low) {
@@ -105,16 +96,13 @@ void tristate(int *value, int base) {
 }
 
 const adc_channel_t channels[8] = {0, 2, 3, 5, 6, 7, 9, 8};
-const gpio_num_t sensor_ports[8] = {25, 26, 27, 14, 12, 4, 2, 15};
-const gpio_num_t ports[8] = {16, 17, 18, 32, 23, 33, 5, 19};
+const gpio_num_t ports[8] = {19, 5, 33, 23, 32, 18, 17, 16};
 
 int readSensor(adc_oneshot_unit_handle_t adcHandle, int index, int samples) {
     int values[samples] = {};
-    
     for (int i = 0; i < samples; ++i) {
         adc_oneshot_read(adcHandle, channels[index % 8], &values[i]);
     }
-
     return roundf(getAvg(values, samples));
 }
 
@@ -134,27 +122,17 @@ void setupAdc() {
     };
 
     for (int i = 0; i < sizeof(channels) / sizeof(channels[0]); ++i) {
-        gpio_pulldown_en(sensor_ports[i]);
-        gpio_pullup_dis(sensor_ports[i]);
         ESP_ERROR_CHECK(adc_oneshot_config_channel(adcHandle, channels[i], &adcChannelConfig));
     }
 }
 
 // Get the LED index for the sensor on the given position
 int getSensorToLedPosition(int row, int col) {
-    if (row % 2 == 0) {
+    if (row % 2 != 0) {
         return row * 8 + col;
     } else {
         return row * 8 + (7 - col);
     }
-}
-
-// Translate sensor index to a LED index
-int sensorToLedIndex(int sensorIndex) {
-    int row = sensorIndex % 8;  // Integer division to get row
-    int col = sensorIndex / 8;  // Modulo to get column
-
-    return getSensorToLedPosition(row, col);
 }
 
 // Render chess pattern
@@ -182,25 +160,25 @@ void gameLoop() {
     int values[8] = {};
 
     //INICIO LOOP JOGO
-    for (int col = 0; col < sizeof(ports) / sizeof(ports[0]); ++col) {
-        gpio_set_level(ports[col], 1);
-        vTaskDelay(pdMS_TO_TICKS(1) / 1000);
+    for (int col = 0; col < 8; ++col) {
 
-        for (int row = 0; row < sizeof(channels) / sizeof(channels[0]); ++row) {
+        for (int row = 0; row < 8; ++row) {
             int index = 8 * col + row;
-            led_strip_set_pixel(led_strip, getSensorToLedPosition(row, col), 255, 255, 0);
-            values[row] = readSensor(adcHandle, index, 10);
-            led_strip_set_pixel(led_strip, getSensorToLedPosition(row, col), 0, 255, 0);
+            
+            for (int i = 0; i <= 10; i++) {
+                gpio_set_level(ports[col], 1);
+                vTaskDelay(pdMS_TO_TICKS(5));
+                values[row] = readSensor(adcHandle, index, 10); 
+                gpio_set_level(ports[col], 0);
+            }         
             // ESP_ERROR_CHECK(led_strip_clear(led_strip));
             // ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, getSensorToLedPosition(row, col), 255, 255, 255));
             // ESP_ERROR_CHECK(led_strip_refresh(led_strip));
-
             tristate(&values[row], sensorBase[index]);
         }
 
         handleData(col, values);
 
-        gpio_set_level(ports[col], 0);
     }
 }
 
@@ -210,71 +188,77 @@ void sensorLoop() {
     renderBoard();
     ESP_LOGI(INIT_TAG, "INICIO");
     ESP_LOGI(INIT_TAG, "Starting sensor loop...");
-    displayText("Testando");
+    displayText("Sensor Loop");
     int values[8] = {};
- 
-    
+
     //APENAS INICIAR COM PECAS NO LUGAR
-    while (isNotReadyToPlay) {
+    /*while (isNotReadyToPlay) {
 
-        int readyCells = 0; // Inicialmente, assume que nenhuma linha está preenchida completamente
+         int readyCells = 0; // Inicialmente, assume que nenhuma linha está preenchida completamente
 
-        ESP_LOGI(INIT_TAG, "Waiting pieces");
-        for (int col = 0; col < sizeof(ports) / sizeof(ports[0]); ++col) {
-            gpio_set_level(ports[col], 1);
-            vTaskDelay(pdMS_TO_TICKS(1) / 1000);
+         ESP_LOGI(INIT_TAG, "Waiting pieces");
+         for (int col = 0; col < sizeof(ports) / sizeof(ports[0]); ++col) {
+             gpio_set_level(ports[col], 1);             
+             
             for (int row = 0; row < sizeof(channels) / sizeof(channels[0]); ++row) {
                 int index = 8 * col + row;
-                values[row] = readSensor(adcHandle, index, 10);
-
+                for (int i = 0; i <= 10; i++) {
+                    gpio_set_level(ports[col], 1);
+                    vTaskDelay(pdMS_TO_TICKS(5));
+                    //if(readSensor2(adcHandle, index) != 0) {
+                    values[row] = readSensor(adcHandle, index, 10); 
+                    //}
+                    gpio_set_level(ports[col], 0);
+                }         
                 tristate(&values[row], sensorBase[index]);
 
-                if (row == 0 || row == 1 || row == 6 || row == 7) {
-                    if (values[row] != 0) {
-                        readyCells++;
-                    }
-                }
+                 if (row == 0 || row == 1 || row == 6 || row == 7) {
+                     if (values[row] != 0) {
+                         readyCells++;
+                     }
+                 }
             }
             isReadyToPlay(col, values);
             gpio_set_level(ports[col], 0);
         }
 
 
-        ESP_LOGI(TAG, "READY CELLS %d", readyCells);
-        if (readyCells == 0) {
-            displayText("0 pronto");
-            vTaskDelay(pdMS_TO_TICKS(1000));
-        }
-        if (readyCells == 1) {
-            displayText("1 pronto");
-            vTaskDelay(pdMS_TO_TICKS(1000));
-        }
-        if (readyCells == 2) {
+         ESP_LOGI(TAG, "READY CELLS %d", readyCells);
+         if (readyCells == 0) {
+             displayText("0 pronto");
+             vTaskDelay(pdMS_TO_TICKS(1000));
+         }
+         if (readyCells == 1) {
+             displayText("1 pronto");
+             vTaskDelay(pdMS_TO_TICKS(1000));
+         }
+         if (readyCells == 2) {
             displayText("2 pronto");
             vTaskDelay(pdMS_TO_TICKS(1000));
         }
-        if (readyCells == 3) {
-            displayText("3 pronto");
-            vTaskDelay(pdMS_TO_TICKS(1000));
-        }
+         if (readyCells == 3) {
+             displayText("3 pronto");
+             vTaskDelay(pdMS_TO_TICKS(1000));
+         }
 
-        if (readyCells == 32) {
-            ESP_LOGI(INIT_TAG, "Ready");
-            displayText("Ready");
+         if (readyCells == 32) {
+             ESP_LOGI(INIT_TAG, "Ready");
+             displayText("Ready");
             vTaskDelay(pdMS_TO_TICKS(1000));
-            isNotReadyToPlay = false; // Todas as 4 linhas estão preenchidas, pronto para jogar
-        } else {
-            ESP_LOGI(INIT_TAG, "Not Ready");
-            displayText("Not Ready");
-            vTaskDelay(pdMS_TO_TICKS(1000));
-            isNotReadyToPlay = true; // Ainda não está pronto, há linhas vazias
-        }
+             isNotReadyToPlay = false; // Todas as 4 linhas estão preenchidas, pronto para jogar
+         } else {
+             ESP_LOGI(INIT_TAG, "Not Ready");
+             displayText("Not Ready");
+             vTaskDelay(pdMS_TO_TICKS(1000));
+             isNotReadyToPlay = true; // Ainda não está pronto, há linhas vazias
+         }
 
-        for (int i = 0; i < sizeof(values) / sizeof(values[0]); ++i) {
-            values[i] = 0;
-        }
-        vTaskDelay(pdMS_TO_TICKS(10));
-    }
+         for (int i = 0; i < sizeof(values) / sizeof(values[0]); ++i) {
+             values[i] = 0;
+         }
+         vTaskDelay(pdMS_TO_TICKS(10));
+    }*/
+    
 
     const esp_timer_create_args_t gameTimer = {
             .callback = &gameLoop,
@@ -282,14 +266,10 @@ void sensorLoop() {
     };
 
     ESP_ERROR_CHECK(esp_timer_create(&gameTimer, &gameTimerHandle));
-
-    displayText("Jogando");
     ESP_ERROR_CHECK(esp_timer_start_periodic(gameTimerHandle, 50000));
 
     vTaskDelete(startupTask);
 }
-
-extern void updateDisplay();
 
 void app_main(void) {
     mutex = xSemaphoreCreateMutex();
@@ -318,13 +298,7 @@ void app_main(void) {
     }
 
     setupAdc();
-    initBoard();
 
-    if (DEBUG) {
-        starting = false;
-        xSemaphoreTake(mutex, portMAX_DELAY);
-        ESP_ERROR_CHECK(led_strip_clear(led_strip));
-    }
     ESP_LOGI(INIT_TAG, "Calibrating for empty board...");
     for (int col = 0; col < sizeof(ports) / sizeof(ports[0]); ++col) {
         gpio_set_level(ports[col], 1);
@@ -333,18 +307,9 @@ void app_main(void) {
         for (int row = 0; row < sizeof(channels) / sizeof(channels[0]); ++row) {
             int index = 8 * col + row;
             sensorBase[index] = readSensor(adcHandle, index, 100);
-
-            if (DEBUG) {
-                ESP_ERROR_CHECK(led_strip_set_pixel(led_strip, getSensorToLedPosition(row, col), 0, 255, 0));
-                ESP_ERROR_CHECK(led_strip_refresh(led_strip));
-            }
         }
 
         gpio_set_level(ports[col], 0);
-    }
-    if (DEBUG) {
-        xSemaphoreGive(mutex);
-        starting = true;
     }
     displayText("Calibrado com Sucesso!");
 
