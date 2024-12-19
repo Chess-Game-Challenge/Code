@@ -2,6 +2,7 @@ https://docs.google.com/presentation/d/16Ngvi2GRAwpd0LD6KQqss5IPHjpMaN3DDrJSTE2m
 
 # Xadrez Inteligente
 A iniciativa do projeto é criar um tabuleiro de xadrez inteligente que possa ensinar a jogadores iniciantes os possíveis movimentos do xadrez. O tabuleiro possui sensores para detectar o movimento das peças e luzes para 
+
 ![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
 ![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
