@@ -1,10 +1,20 @@
 # Xadrez Inteligente
-A iniciativa do projeto é criar um tabuleiro de xadrez inteligente que possa ensinar a jogadores iniciantes os possíveis movimentos do xadrez. O tabuleiro possui sensores para detectar o movimento das peças e luzes para 
+A iniciativa do projeto é criar um tabuleiro de xadrez inteligente que possa ensinar a jogadores iniciantes as regras do xadrez. O tabuleiro possui sensores magnéticos para detectar o movimento das peças e luzes para realizar a indicação dos movimentos. Futuramente irá contar com análise de melhores/piores jogadas, detecção de cheque/cheque mate, integração com IA's jogadoras de xadrez, integração com serviços online como chess.com.
 
-<img src="![image](https://github.com/user-attachments/assets/51de9cce-8376-4ab0-a279-f7b5b24d3320)" alt="Descrição da imagem" width="300">
-![image](https://github.com/user-attachments/assets/e8885abd-0ccc-4a28-ad8c-af7f69bdaec1)
+![GitHub commit activity](https://img.shields.io/github/commit-activity/t/Chess-Game-Challenge/Code?style=flat-squarestyle=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/Chess-Game-Challenge/Code?style=flat-squarestyle=for-the-badge)
+![GitHub repo size](https://img.shields.io/badge/EspIDF-100000?style=flat&logo=espressif&logoColor=FFFFFF&labelColor=FF0000&color=555555)
+![GitHub repo size](https://img.shields.io/badge/Esp32-100000?style=flat&logo=esphome&logoColor=FFFFFF&labelColor=05BD27&color=555555)
+> Projeto ainda em desenvolvimento
 
-> Ainda em desenvolvimento
+
+<img src="https://github.com/user-attachments/assets/cb7b805b-00db-4d3b-9908-ad9cb961b1b7" alt="Descrição da imagem" width="300">
+<img src="https://github.com/user-attachments/assets/768b242a-1a93-49ad-b011-b268ebf94c31" alt="Descrição da imagem" width="300">
+![image](https://github.com/user-attachments/assets/768b242a-1a93-49ad-b011-b268ebf94c31)
+
+
+
+![image](https://github.com/user-attachments/assets/cb7b805b-00db-4d3b-9908-ad9cb961b1b7)
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
