@@ -1,30 +1,10 @@
-https://docs.google.com/presentation/d/16Ngvi2GRAwpd0LD6KQqss5IPHjpMaN3DDrJSTE2mlE8/edit#slide=id.g4dfce81f19_0_45
-
 # Xadrez Inteligente
 A iniciativa do projeto é criar um tabuleiro de xadrez inteligente que possa ensinar a jogadores iniciantes os possíveis movimentos do xadrez. O tabuleiro possui sensores para detectar o movimento das peças e luzes para 
 
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub repo size](https://img.shields.io/github/repo-size/iuricode/README-template?style=for-the-badge)
-![GitHub language count](https://img.shields.io/github/languages/count/iuricode/README-template?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/iuricode/README-template?style=for-the-badge)
-![Bitbucket open issues](https://img.shields.io/bitbucket/issues/iuricode/README-template?style=for-the-badge)
-![Bitbucket open pull requests](https://img.shields.io/bitbucket/pr-raw/iuricode/README-template?style=for-the-badge)
+<img src="![image](https://github.com/user-attachments/assets/51de9cce-8376-4ab0-a279-f7b5b24d3320)" alt="Descrição da imagem" width="300">
+![image](https://github.com/user-attachments/assets/e8885abd-0ccc-4a28-ad8c-af7f69bdaec1)
 
-<img src="imagem.png" alt="Exemplo imagem">
-
-> Linha adicional de texto informativo sobre o que o projeto faz. Sua introdução deve ter cerca de 2 ou 3 linhas. Não exagere, as pessoas não vão ler.
-
-### Ajustes e melhorias
-
-O projeto ainda está em desenvolvimento e as próximas atualizações serão voltadas para as seguintes tarefas:
-
-- [x] Tarefa 1
-- [x] Tarefa 2
-- [x] Tarefa 3
-- [ ] Tarefa 4
-- [ ] Tarefa 5
-
-## 💻 Pré-requisitos
+> Ainda em desenvolvimento
 
 Antes de começar, verifique se você atendeu aos seguintes requisitos:
 
