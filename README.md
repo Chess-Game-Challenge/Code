@@ -44,13 +44,13 @@
         <img src="https://img.shields.io/badge/Esp32-100000?style=flat&logo=esphome&logoColor=FFFFFF&labelColor=05BD27&color=555555" alt="Esp32">
       </span>
     </div>
-  <!-- <h4>
+  <h4>
     <a href="https://docs.google.com/presentation/d/16Ngvi2GRAwpd0LD6KQqss5IPHjpMaN3DDrJSTE2mlE8/edit?usp=sharing">Apresentação</a>
     <span> · </span>
     <a href="https://github.com/Chess-Game-Challenge/Code/tree/develop/chessboard">Código</a>
     <span> · </span>
     <a href="https://wokwi.com/projects/406405257341848577">Circuito</a>
-  </h4> -->
+  </h4>
   
 </div>
 
