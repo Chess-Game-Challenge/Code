@@ -24,7 +24,7 @@
         <a href="https://github.com/MattosPedro" title="defina o título do link">
           <img src="https://github.com/user-attachments/assets/22d53180-88e9-4c3d-8744-bb033067da52" width="100px;"/><br>
           <sub>
-            <b>Marcos Dias</b>
+            <b>Pedro Lucas</b>
           </sub>
         </a>
       </td>
