@@ -58,6 +58,14 @@
 A iniciativa do projeto é criar um tabuleiro de xadrez inteligente que possa ensinar a jogadores iniciantes as regras do xadrez. O tabuleiro possui sensores magnéticos para detectar o movimento das peças e luzes para realizar a indicação dos movimentos. Futuramente irá contar com análise de melhores/piores jogadas, detecção de xeque/xeque mate, integração com IA's jogadoras de xadrez, integração com serviços online como chess.com.
 >[!WARNING]
 Projeto ainda em aprimoramento
+
+# Resultado Final
+<div align="center">
+  <a href="https://youtu.be/EqiqyPKM_Wo" target="_blank">
+    <img src="https://github.com/user-attachments/assets/a1247f05-895e-4993-a8a5-199f966a6fe4" alt="Descrição da imagem" width="800">
+  </a>
+</div>
+
 <!-- <img src="https://github.com/user-attachments/assets/ef52b3c7-4971-4327-9f3d-addd13a7f058" width="330">
 <img src="https://github.com/user-attachments/assets/d9ae956c-8ee9-4f0f-9193-bd0b2b97cb0a" width="330">
 <img src="https://github.com/user-attachments/assets/93245f9d-81e5-4fd4-9ee9-8ad061a30bd1" width="330"> -->
@@ -120,9 +128,3 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 ### Desenvolvimento do Software
 <img src="https://github.com/user-attachments/assets/70a2523e-41c8-491f-976e-a8cc29c5506c" width="500" height="250">
-
-<div align="center">
-  <a href="https://youtu.be/EqiqyPKM_Wo" target="_blank">
-    <img src="https://github.com/user-attachments/assets/a1247f05-895e-4993-a8a5-199f966a6fe4" alt="Descrição da imagem" width="800">
-  </a>
-</div>
