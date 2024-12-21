@@ -106,7 +106,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
     </td>
 </table> 
 -->
-
+<!--
 # Metodologia
 ### Idealização
 <img src="https://github.com/user-attachments/assets/6852b944-b9a4-4086-aef9-5c6347b3b63f" width="500" height="250" >
@@ -128,3 +128,4 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 ### Desenvolvimento do Software
 <img src="https://github.com/user-attachments/assets/70a2523e-41c8-491f-976e-a8cc29c5506c" width="500" height="250">
+-->
