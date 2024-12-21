@@ -59,7 +59,7 @@ A iniciativa do projeto é criar um tabuleiro de xadrez inteligente que possa en
 >[!WARNING]
 Projeto ainda em aprimoramento
 
-# Resultado Final
+# Apresentação
 <div align="center">
   <a href="https://youtu.be/EqiqyPKM_Wo" target="_blank">
     <img src="https://github.com/user-attachments/assets/a1247f05-895e-4993-a8a5-199f966a6fe4" alt="Descrição da imagem" width="800">
