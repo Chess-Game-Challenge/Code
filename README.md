@@ -99,7 +99,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 </table> 
 -->
 
-<!-- # Metodologia
+# Metodologia
 ### Idealização
 <img src="https://github.com/user-attachments/assets/6852b944-b9a4-4086-aef9-5c6347b3b63f" width="500" height="250" >
 
@@ -120,7 +120,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
 
 ### Desenvolvimento do Software
 <img src="https://github.com/user-attachments/assets/70a2523e-41c8-491f-976e-a8cc29c5506c" width="500" height="250">
--->
+
 <div align="center">
   <a href="https://youtu.be/EqiqyPKM_Wo" target="_blank">
     <img src="https://github.com/user-attachments/assets/a1247f05-895e-4993-a8a5-199f966a6fe4" alt="Descrição da imagem" width="800">
